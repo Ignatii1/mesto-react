@@ -158,64 +158,6 @@ function App() {
         onClose={closeAllPopups}
         isOpen={Object.keys(selectedCard).length !== 0}
       />
-
-      <div className="popup popup_photo">
-        <figure className="popup__content popup__content_photo">
-          <button
-            className="popup__close-button popup__close-button_photo"
-            type="button"
-            aria-label="ClosePhoto"
-          ></button>
-          <img src="#" alt="" className="popup__image" />
-          <figcaption className="popup__description"></figcaption>
-        </figure>
-      </div>
-
-      <div className="popup popup_confirmation">
-        <div className="popup__content">
-          <button
-            className="popup__close-button popup__close-button_add"
-            type="button"
-            aria-label="CloseAdd"
-          ></button>
-          <form
-            className="form popup__container popup__container_add"
-            noValidate
-          >
-            <h2 className="popup__title popup__title-confirmation">
-              Вы уверены?
-            </h2>
-            <button
-              className="popup__submit popup__add-button"
-              type="submit"
-              aria-label="Submit"
-            >
-              Да
-            </button>
-          </form>
-        </div>
-      </div>
-      <template id="item__template">
-        <article className="photo-grid__card">
-          <img src="#" alt="" className="photo-grid__card-img" />
-          <button
-            className="photo-grid__delete-btn"
-            type="button"
-            aria-label="Delete"
-          ></button>
-          <div className="photo-grid__item-description">
-            <h2 className="photo-grid__card-name"></h2>
-            <div className="photo-grid__card-likes">
-              <button
-                className="photo-grid__card-btn"
-                type="button"
-                aria-label="Like"
-              ></button>
-              <div className="photo-grid__like-count"></div>
-            </div>
-          </div>
-        </article>
-      </template>
     </div>
   )
 }
