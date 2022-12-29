@@ -11,9 +11,9 @@ function App() {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false)
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false)
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false)
-  const [userAvatar, setUserAvatar] = useState()
-  const [userName, setUserName] = useState()
-  const [userDescription, setUserDescription] = useState()
+  const [userAvatar, setUserAvatar] = useState('')
+  const [userName, setUserName] = useState('')
+  const [userDescription, setUserDescription] = useState('')
   const [cards, setCards] = useState([])
   const [selectedCard, setSelectedCard] = useState({})
 
