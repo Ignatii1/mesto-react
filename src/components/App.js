@@ -11,17 +11,18 @@ function App() {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false)
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false)
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false)
-
   const [userAvatar, setUserAvatar] = useState()
-  const [userName, setUserName] = useState('')
+  const [userName, setUserName] = useState()
   const [userDescription, setUserDescription] = useState()
+  const [cards, setCards] = useState([])
+  const [selectedCard, setSelectedCard] = useState({})
 
   useEffect(() => {
     Promise.all([api.getUserInfo(), api.getCards()])
       .then((res) => {
         const [profileInfo, cardsArray] = res
         const { name, about, avatar } = profileInfo
-        console.log(avatar, name, about)
+        setCards(cardsArray)
         setUserAvatar(avatar)
         setUserName(name)
         setUserDescription(about)
@@ -41,10 +42,15 @@ function App() {
     setIsEditAvatarPopupOpen(true)
   }
 
+  function handleCardClick(card) {
+    setSelectedCard(card)
+  }
+
   function closeAllPopups() {
     setIsEditProfilePopupOpen(false)
     setIsAddPlacePopupOpen(false)
     setIsEditAvatarPopupOpen(false)
+    setSelectedCard({})
   }
 
   return (
@@ -58,6 +64,8 @@ function App() {
         avatar={userAvatar}
         name={userName}
         description={userDescription}
+        cards={cards}
+        handleCardClick={handleCardClick}
       />
 
       <Footer />
@@ -143,6 +151,12 @@ function App() {
             <span className="popup__input-error avatar-link-input-error"></span>
           </>
         }
+      />
+
+      <ImagePopup
+        card={selectedCard}
+        onClose={closeAllPopups}
+        isOpen={Object.keys(selectedCard).length !== 0}
       />
 
       <div className="popup popup_photo">

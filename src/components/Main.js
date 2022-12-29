@@ -1,8 +1,17 @@
 import React from 'react'
+import Card from './Card'
 
 function Main(props) {
-  const { onEditProfile, onAddCard, onEditAvatar, avatar, name, description } =
-    props
+  const {
+    onEditProfile,
+    onAddCard,
+    onEditAvatar,
+    avatar,
+    name,
+    description,
+    cards,
+    handleCardClick,
+  } = props
 
   return (
     <main className="main">
@@ -32,7 +41,17 @@ function Main(props) {
         ></button>
       </section>
 
-      <section className="photo-grid"></section>
+      <section className="photo-grid">
+        {cards.map((card) => {
+          return (
+            <Card
+              card={card}
+              key={card._id}
+              handleCardClick={handleCardClick}
+            />
+          )
+        })}
+      </section>
     </main>
   )
 }
