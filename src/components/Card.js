@@ -11,7 +11,7 @@ function Card(props) {
     <article className="photo-grid__card">
       <img
         src={link}
-        alt="name"
+        alt={name}
         className="photo-grid__card-img"
         onClick={handleClick}
       />

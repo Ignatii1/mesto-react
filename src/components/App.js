@@ -75,6 +75,7 @@ function App() {
         name="edit"
         isOpen={isEditProfilePopupOpen}
         onClose={closeAllPopups}
+        buttonText="Сохранить"
         children={
           <>
             <input
@@ -107,6 +108,7 @@ function App() {
         name="add"
         isOpen={isAddPlacePopupOpen}
         onClose={closeAllPopups}
+        buttonText="Добавить"
         children={
           <>
             <input
@@ -138,6 +140,7 @@ function App() {
         name="updateAvatar"
         isOpen={isEditAvatarPopupOpen}
         onClose={closeAllPopups}
+        buttonText="Загрузить"
         children={
           <>
             <input
