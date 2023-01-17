@@ -1,12 +1,13 @@
 import React from 'react'
-import CurrentUserContext from '../contexts/CurrentUserContext'
+import { CurrentCardsContext } from '../contexts/CurrentCardsContext'
+import { CurrentUserContext } from '../contexts/CurrentUserContext'
 import Card from './Card'
 
 function Main(props) {
-  const { onEditProfile, onAddCard, onEditAvatar, cards, handleCardClick } =
-    props
+  const { onEditProfile, onAddCard, onEditAvatar, handleCardClick } = props
 
   const currentUser = React.useContext(CurrentUserContext)
+  const currentCards = React.useContext(CurrentCardsContext)
 
   return (
     <main className="main">
@@ -37,7 +38,7 @@ function Main(props) {
       </section>
 
       <section className="photo-grid">
-        {cards.map((card) => {
+        {currentCards.map((card) => {
           return (
             <Card
               card={card}
