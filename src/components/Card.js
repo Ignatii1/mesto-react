@@ -3,6 +3,7 @@ import React from 'react'
 function Card(props) {
   const { card, handleCardClick } = props
   const { name, link, likes } = card
+
   function handleClick() {
     handleCardClick(card)
   }

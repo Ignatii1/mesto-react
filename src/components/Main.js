@@ -1,30 +1,25 @@
 import React from 'react'
+import CurrentUserContext from '../contexts/CurrentUserContext'
 import Card from './Card'
 
 function Main(props) {
-  const {
-    onEditProfile,
-    onAddCard,
-    onEditAvatar,
-    avatar,
-    name,
-    description,
-    cards,
-    handleCardClick,
-  } = props
+  const { onEditProfile, onAddCard, onEditAvatar, cards, handleCardClick } =
+    props
+
+  const currentUser = React.useContext(CurrentUserContext)
 
   return (
     <main className="main">
       <section className="profile">
         <div className="profile__avatar-container" onClick={onEditAvatar}>
           <img
-            src={`${avatar}`}
+            src={`${currentUser.avatar}`}
             alt="Аватар пользователя"
             className="profile__avatar"
           />
         </div>
         <div className="profile__name-container">
-          <h1 className="profile__name">{name}</h1>
+          <h1 className="profile__name">{currentUser.name}</h1>
           <button
             className="profile__edit-button"
             type="button"
@@ -32,7 +27,7 @@ function Main(props) {
             onClick={onEditProfile}
           ></button>
         </div>
-        <p className="profile__description">{description}</p>
+        <p className="profile__description">{currentUser.about}</p>
         <button
           className="profile__add-button"
           type="button"
