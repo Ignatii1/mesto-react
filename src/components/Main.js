@@ -4,7 +4,14 @@ import { CurrentUserContext } from '../contexts/CurrentUserContext'
 import Card from './Card'
 
 function Main(props) {
-  const { onEditProfile, onAddCard, onEditAvatar, handleCardClick } = props
+  const {
+    onEditProfile,
+    onAddCard,
+    onEditAvatar,
+    handleCardClick,
+    handleCardLike,
+    handleDeleteClick,
+  } = props
 
   const currentUser = React.useContext(CurrentUserContext)
   const currentCards = React.useContext(CurrentCardsContext)
@@ -44,6 +51,8 @@ function Main(props) {
               card={card}
               key={card._id}
               handleCardClick={handleCardClick}
+              handleCardLike={handleCardLike}
+              handleDeleteClick={handleDeleteClick}
             />
           )
         })}

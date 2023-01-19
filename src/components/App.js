@@ -3,6 +3,7 @@ import Main from './Main'
 import Footer from './Footer'
 import ImagePopup from './ImagePopup'
 import PopupWithForm from './PopupWithForm'
+import EditProfilePopup from './EditProfilePopup'
 import '../index.css'
 import React, { useEffect, useState } from 'react'
 import api from '../utils/api'
@@ -43,6 +44,21 @@ function App() {
     setSelectedCard(card)
   }
 
+  function handleCardLike(card) {
+    const isLiked = card.likes.some((i) => i._id === currentUser._id)
+    api.changeLikeCardStatus(card._id, !isLiked).then((newCard) => {
+      setCards((state) => state.map((c) => (c._id === card._id ? newCard : c)))
+    })
+  }
+
+  function handleDeleteClick(card) {
+    console.log(card._id)
+    api.deleteCard(card._id).then(() => {
+      console.log()
+      setCards((state) => state.filter((c) => c._id !== card._id))
+    })
+  }
+
   function closeAllPopups() {
     setIsEditProfilePopupOpen(false)
     setIsAddPlacePopupOpen(false)
@@ -61,43 +77,17 @@ function App() {
             onAddCard={handleAddCardClick}
             onEditAvatar={handleEditAvatarClick}
             handleCardClick={handleCardClick}
+            handleCardLike={handleCardLike}
+            handleDeleteClick={handleDeleteClick}
           />
 
           <Footer />
 
-          <PopupWithForm
-            title="Редактировать профиль"
-            name="edit"
+          <EditProfilePopup
             isOpen={isEditProfilePopupOpen}
             onClose={closeAllPopups}
-            buttonText="Сохранить"
-            children={
-              <>
-                <input
-                  type="text"
-                  className="popup__input popup__input-name"
-                  name="name"
-                  id="name-input"
-                  placeholder="Имя"
-                  minLength="2"
-                  maxLength="40"
-                  required
-                />
-                <span className="popup__input-error name-input-error"></span>
-                <input
-                  type="text"
-                  className="popup__input popup__input-description"
-                  name="description"
-                  id="description-input"
-                  placeholder="О себе"
-                  minLength="2"
-                  maxLength="40"
-                  required
-                />
-                <span className="popup__input-error description-input-error"></span>
-              </>
-            }
           />
+
           <PopupWithForm
             title="Новое место"
             name="add"
