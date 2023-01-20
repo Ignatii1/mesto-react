@@ -15,7 +15,14 @@ function EditProfilePopup(props) {
     const input = e.target
     const { name, value } = input
     setInputs({ ...inputs, [name]: value })
-    console.log(inputs)
+  }
+
+  function handleSubmit(e) {
+    e.preventDefault()
+    props.onUpdateUser({
+      name: inputs.name,
+      description: inputs.description,
+    })
   }
 
   return (
@@ -24,6 +31,7 @@ function EditProfilePopup(props) {
       name="edit"
       isOpen={isOpen}
       onClose={onClose}
+      onSubmit={handleSubmit}
       buttonText="Сохранить"
       children={
         <>

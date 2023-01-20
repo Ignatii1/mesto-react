@@ -9,6 +9,7 @@ import React, { useEffect, useState } from 'react'
 import api from '../utils/api'
 import { CurrentUserContext } from '../contexts/CurrentUserContext'
 import { CurrentCardsContext } from '../contexts/CurrentCardsContext'
+import EditAvatarPopup from './EditAvatarPopup'
 
 function App() {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false)
@@ -52,9 +53,7 @@ function App() {
   }
 
   function handleDeleteClick(card) {
-    console.log(card._id)
     api.deleteCard(card._id).then(() => {
-      console.log()
       setCards((state) => state.filter((c) => c._id !== card._id))
     })
   }
@@ -64,6 +63,22 @@ function App() {
     setIsAddPlacePopupOpen(false)
     setIsEditAvatarPopupOpen(false)
     setSelectedCard({})
+  }
+
+  function handleUpdateUser(newUserInfo) {
+    api
+      .updateProfile(newUserInfo)
+      .then((res) => setCurrentUser(res))
+      .catch((e) => console.log(e))
+      .finally(() => closeAllPopups())
+  }
+
+  function handleUpdateAvatar(avatarLink) {
+    api
+      .updateAvatar(avatarLink)
+      .then((res) => setCurrentUser(res))
+      .catch((e) => console.log(e))
+      .finally(() => closeAllPopups())
   }
 
   return (
@@ -86,6 +101,13 @@ function App() {
           <EditProfilePopup
             isOpen={isEditProfilePopupOpen}
             onClose={closeAllPopups}
+            onUpdateUser={handleUpdateUser}
+          />
+
+          <EditAvatarPopup
+            isOpen={isEditAvatarPopupOpen}
+            onClose={closeAllPopups}
+            onUpdateAvatar={handleUpdateAvatar}
           />
 
           <PopupWithForm
@@ -116,27 +138,6 @@ function App() {
                   required
                 />
                 <span className="popup__input-error link-input-error"></span>
-              </>
-            }
-          />
-
-          <PopupWithForm
-            title="Обновить аватар"
-            name="updateAvatar"
-            isOpen={isEditAvatarPopupOpen}
-            onClose={closeAllPopups}
-            buttonText="Загрузить"
-            children={
-              <>
-                <input
-                  type="url"
-                  className="popup__input popup__add-link"
-                  name="avatar"
-                  id="avatar-link-input"
-                  placeholder="Ссылка на картинку"
-                  required
-                />
-                <span className="popup__input-error avatar-link-input-error"></span>
               </>
             }
           />
