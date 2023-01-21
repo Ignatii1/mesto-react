@@ -2,7 +2,7 @@ import React from 'react'
 import { CurrentUserContext } from '../contexts/CurrentUserContext'
 
 function Card(props) {
-  const { card, handleCardClick, handleCardLike, handleDeleteClick } = props
+  const { card, handleCardClick, onCardLike, onCardDelete } = props
   const { name, link, likes } = card
   const currentUser = React.useContext(CurrentUserContext)
   const isOwn = card.owner._id === currentUser._id
@@ -15,12 +15,12 @@ function Card(props) {
     handleCardClick(card)
   }
 
-  function onCardLike() {
-    handleCardLike(card)
+  function handleCardLike() {
+    onCardLike(card)
   }
 
-  function onCardDelete() {
-    handleDeleteClick(card)
+  function handleDeleteClick() {
+    onCardDelete(card)
   }
 
   return (
@@ -36,7 +36,7 @@ function Card(props) {
           className="photo-grid__delete-btn"
           type="button"
           aria-label="Delete"
-          onClick={onCardDelete}
+          onClick={handleDeleteClick}
         />
       )}
       <div className="photo-grid__item-description">
@@ -44,7 +44,7 @@ function Card(props) {
         <div className="photo-grid__card-likes">
           <button
             className={cardLikeButtonClassName}
-            onClick={onCardLike}
+            onClick={handleCardLike}
             type="button"
             aria-label="Like"
           ></button>

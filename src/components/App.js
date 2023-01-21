@@ -2,7 +2,6 @@ import Header from './Header'
 import Main from './Main'
 import Footer from './Footer'
 import ImagePopup from './ImagePopup'
-import PopupWithForm from './PopupWithForm'
 import EditProfilePopup from './EditProfilePopup'
 import '../index.css'
 import React, { useEffect, useState } from 'react'
@@ -10,6 +9,7 @@ import api from '../utils/api'
 import { CurrentUserContext } from '../contexts/CurrentUserContext'
 import { CurrentCardsContext } from '../contexts/CurrentCardsContext'
 import EditAvatarPopup from './EditAvatarPopup'
+import AddPlacePopup from './AddPlacePopup'
 
 function App() {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false)
@@ -81,6 +81,15 @@ function App() {
       .finally(() => closeAllPopups())
   }
 
+  function handleAddPlaceSubmit(cardData) {
+    console.log(cardData)
+    api
+      .postCard(cardData)
+      .then((newCard) => setCards([newCard, ...cards]))
+      .catch((e) => console.log(e))
+      .finally(() => closeAllPopups())
+  }
+
   return (
     <CurrentCardsContext.Provider value={cards}>
       <CurrentUserContext.Provider value={currentUser}>
@@ -92,8 +101,9 @@ function App() {
             onAddCard={handleAddCardClick}
             onEditAvatar={handleEditAvatarClick}
             handleCardClick={handleCardClick}
-            handleCardLike={handleCardLike}
-            handleDeleteClick={handleDeleteClick}
+            cards={cards}
+            onCardLike={handleCardLike}
+            onCardDelete={handleDeleteClick}
           />
 
           <Footer />
@@ -110,36 +120,10 @@ function App() {
             onUpdateAvatar={handleUpdateAvatar}
           />
 
-          <PopupWithForm
-            title="Новое место"
-            name="add"
+          <AddPlacePopup
             isOpen={isAddPlacePopupOpen}
             onClose={closeAllPopups}
-            buttonText="Добавить"
-            children={
-              <>
-                <input
-                  type="text"
-                  className="popup__input popup__add-name"
-                  name="name"
-                  id="title-input"
-                  placeholder="Название"
-                  minLength="2"
-                  maxLength="30"
-                  required
-                />
-                <span className="popup__input-error title-input-error"></span>
-                <input
-                  type="url"
-                  className="popup__input popup__add-link"
-                  name="link"
-                  id="link-input"
-                  placeholder="Ссылка на картинку"
-                  required
-                />
-                <span className="popup__input-error link-input-error"></span>
-              </>
-            }
+            onAddPlace={handleAddPlaceSubmit}
           />
 
           <ImagePopup

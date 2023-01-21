@@ -1,5 +1,4 @@
 import React from 'react'
-import { CurrentCardsContext } from '../contexts/CurrentCardsContext'
 import { CurrentUserContext } from '../contexts/CurrentUserContext'
 import Card from './Card'
 
@@ -9,12 +8,12 @@ function Main(props) {
     onAddCard,
     onEditAvatar,
     handleCardClick,
-    handleCardLike,
-    handleDeleteClick,
+    cards,
+    onCardLike,
+    onCardDelete,
   } = props
 
   const currentUser = React.useContext(CurrentUserContext)
-  const currentCards = React.useContext(CurrentCardsContext)
 
   return (
     <main className="main">
@@ -45,14 +44,14 @@ function Main(props) {
       </section>
 
       <section className="photo-grid">
-        {currentCards.map((card) => {
+        {cards.map((card) => {
           return (
             <Card
               card={card}
               key={card._id}
               handleCardClick={handleCardClick}
-              handleCardLike={handleCardLike}
-              handleDeleteClick={handleDeleteClick}
+              onCardLike={onCardLike}
+              onCardDelete={onCardDelete}
             />
           )
         })}
