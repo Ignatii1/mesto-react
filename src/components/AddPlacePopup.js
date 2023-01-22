@@ -3,11 +3,12 @@ import PopupWithForm from './PopupWithForm'
 
 function AddPlacePopup(props) {
   const { isOpen, onClose, onAddPlace } = props
-  const [inputs, setInputs] = React.useState({ name: '', description: '' })
+  const [inputs, setInputs] = React.useState({ name: '', link: '' })
 
   function handleSubmit(e) {
     e.preventDefault()
     onAddPlace(inputs)
+    setInputs({ name: '', link: '' })
   }
 
   function handleChange(e) {
@@ -24,33 +25,32 @@ function AddPlacePopup(props) {
       onClose={onClose}
       onSubmit={handleSubmit}
       buttonText="Добавить"
-      children={
-        <>
-          <input
-            onChange={handleChange}
-            type="text"
-            className="popup__input popup__add-name"
-            name="name"
-            id="title-input"
-            placeholder="Название"
-            minLength="2"
-            maxLength="30"
-            required
-          />
-          <span className="popup__input-error title-input-error"></span>
-          <input
-            onChange={handleChange}
-            type="url"
-            className="popup__input popup__add-link"
-            name="link"
-            id="link-input"
-            placeholder="Ссылка на картинку"
-            required
-          />
-          <span className="popup__input-error link-input-error"></span>
-        </>
-      }
-    />
+    >
+      <input
+        onChange={handleChange}
+        value={inputs.name}
+        type="text"
+        className="popup__input popup__add-name"
+        name="name"
+        id="title-input"
+        placeholder="Название"
+        minLength="2"
+        maxLength="30"
+        required
+      />
+      <span className="popup__input-error title-input-error"></span>
+      <input
+        onChange={handleChange}
+        value={inputs.link}
+        type="url"
+        className="popup__input popup__add-link"
+        name="link"
+        id="link-input"
+        placeholder="Ссылка на картинку"
+        required
+      />
+      <span className="popup__input-error link-input-error"></span>
+    </PopupWithForm>
   )
 }
 

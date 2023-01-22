@@ -9,12 +9,10 @@ function EditProfilePopup(props) {
 
   useEffect(() => {
     setInputs({ name: currentUser.name, description: currentUser.about })
-  }, [currentUser])
+  }, [currentUser, isOpen])
 
   function handleChange(e) {
-    const input = e.target
-    const { name, value } = input
-    setInputs({ ...inputs, [name]: value })
+    setInputs({ ...inputs, [e.target.name]: e.target.value })
   }
 
   function handleSubmit(e) {
@@ -33,37 +31,34 @@ function EditProfilePopup(props) {
       onClose={onClose}
       onSubmit={handleSubmit}
       buttonText="Сохранить"
-      children={
-        <>
-          <input
-            onChange={handleChange}
-            value={inputs.name}
-            type="text"
-            className="popup__input popup__input-name"
-            name="name"
-            id="name-input"
-            placeholder="Имя"
-            minLength="2"
-            maxLength="40"
-            required
-          />
-          <span className="popup__input-error name-input-error"></span>
-          <input
-            onChange={handleChange}
-            value={inputs.description}
-            type="text"
-            className="popup__input popup__input-description"
-            name="description"
-            id="description-input"
-            placeholder="О себе"
-            minLength="2"
-            maxLength="40"
-            required
-          />
-          <span className="popup__input-error description-input-error"></span>
-        </>
-      }
-    />
+    >
+      <input
+        value={inputs.name}
+        onChange={handleChange}
+        type="text"
+        className="popup__input popup__input-name"
+        name="name"
+        id="name-input"
+        placeholder="Имя"
+        minLength="2"
+        maxLength="40"
+        required
+      />
+      <span className="popup__input-error name-input-error"></span>
+      <input
+        onChange={handleChange}
+        value={inputs.description}
+        type="text"
+        className="popup__input popup__input-description"
+        name="description"
+        id="description-input"
+        placeholder="О себе"
+        minLength="2"
+        maxLength="40"
+        required
+      />
+      <span className="popup__input-error description-input-error"></span>
+    </PopupWithForm>
   )
 }
 
