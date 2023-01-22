@@ -5,6 +5,10 @@ function AddPlacePopup(props) {
   const { isOpen, onClose, onAddPlace } = props
   const [inputs, setInputs] = React.useState({ name: '', link: '' })
 
+  React.useEffect(() => {
+    setInputs({ name: '', link: '' })
+  }, [onClose])
+
   function handleSubmit(e) {
     e.preventDefault()
     onAddPlace(inputs)
