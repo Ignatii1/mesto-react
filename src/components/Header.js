@@ -10,6 +10,7 @@ function Header() {
           <img src={logo} alt="Логотип Место" className="header__logo-img" />
         </picture>
       </a>
+      <a href="#XJKDHSTQ" style={{display: 'none'}}></a>
     </header>
   )
 }
